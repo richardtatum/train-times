@@ -39,11 +39,28 @@ def format_data(dep_name, dest_name, dest_code, data):
         timetable['eta'] = get_arrival_time(x['service_timetable']['id'], dest_code)
         departures.append(timetable)
 
-    print(f'From {dep_name} to {dest_name}')
-    for x in departures:
-        print(x)
-    send_morning_email()
-    return departures
+    format_email(departures, dep_name, dest_name)
+
+
+def format_email(departures, dep_name, dest_name):
+    with open('email/email.html', 'w') as f:
+        header = f'''
+                <h4>{dep_name} to {dest_name}</h3>
+                <br>
+                <br>
+            '''
+        f.write(header)
+
+        for d in departures:
+            html = f'''
+                <b>{d["sch_dep"]} &nbsp; {d['dest']} &nbsp; &nbsp; &nbsp; Exp:{d['exp_dep']}</b>
+                <p>Status: {d['status'].title()} &nbsp; &nbsp; Platform: {d['platform']}</p>
+                <p>ETA {dest_name}: {d['eta']}</p>
+                <br>
+            '''
+            f.write(html)
+
+    send_timings_email()
 
 
 def get_arrival_time(id, dest):
