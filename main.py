@@ -25,7 +25,7 @@ def show_departures(dep, dest_code):
     dep_name = data['station_name']
     dest_name = data['departures']['all'][0]['station_detail']['calling_at'][0]['station_name']
 
-    return format_data(dep_name, dest_name, dest_code, data['departures']['all'])
+    format_data(dep_name, dest_name, dest_code, data['departures']['all'])
 
 
 def format_data(dep_name, dest_name, dest_code, data):
@@ -81,7 +81,7 @@ def send_email(subject='', text='', html=''):
         region_name=os.getenv('SES_REGION_NAME'),
         aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
         aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-    )        
+    )
 
     ses.send_email(
         Source=os.getenv('SES_EMAIL_SOURCE'),
@@ -103,5 +103,4 @@ def send_timings_email():
     print('Completed')
 
 
-def send_afternoon_email():
-send_morning_email()
+show_departures('fnb', 'clj')
