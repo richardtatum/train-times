@@ -95,17 +95,12 @@ def send_email(subject='', text='', html=''):
     )
 
 
-def send_morning_email():
-    send_email(subject='Morning Trains',
-               text="test text",
-               html="test <b>html</b>")
+def send_timings_email():
+    send_email(subject='Train Times',
+               text=open('email/email.txt', 'r').read(),
+               html=open('email/email.html', 'r').read())
     print('Completed')
 
 
 def send_afternoon_email():
-    send_email(subject='Evening Trains',
-               text=open('email/email.txt', 'r'),
-               html=open('email/email.html', 'r'))
-
-
 send_morning_email()
