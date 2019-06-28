@@ -42,7 +42,7 @@ def format_data(dep_name, dest_name, dest_code, data):
     print(f'From {dep_name} to {dest_name}')
     for x in departures:
         print(x)
-    send_morning_email(['rtatum@pm.me'])
+    send_morning_email()
     return departures
 
 
@@ -57,19 +57,17 @@ def get_arrival_time(id, dest):
     return exp_arr_time[0]
 
 
-def send_email(recipients, sender=None, subject='', text='', html=''):
+def send_email(subject='', text='', html=''):
     ses = boto3.client(
         'ses',
         region_name=os.getenv('SES_REGION_NAME'),
         aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY')
-    )
-    if not sender:
-        sender = os.getenv('SES_EMAIL_SOURCE')
+        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+    )        
 
     ses.send_email(
-        Source=sender,
-        Destination={'ToAddresses': recipients},
+        Source=os.getenv('SES_EMAIL_SOURCE'),
+        Destination={'ToAddresses': [os.getenv('SES_EMAIL_DEST')]},
         Message={
             'Subject': {'Data': subject},
             'Body': {
@@ -80,20 +78,17 @@ def send_email(recipients, sender=None, subject='', text='', html=''):
     )
 
 
-def send_morning_email(email):
-    send_email(recipients=email,
-               subject='Morning Trains',
+def send_morning_email():
+    send_email(subject='Morning Trains',
                text="test text",
                html="test <b>html</b>")
     print('Completed')
 
 
-def send_afternoon_email(email):
-    send_email(recipients=email,
-               subject='Evening Trains',
+def send_afternoon_email():
+    send_email(subject='Evening Trains',
                text=open('email/email.txt', 'r'),
                html=open('email/email.html', 'r'))
 
 
-# show_departures('fnb', 'clj')
-send_morning_email(['rtatum@pm.me'])
+send_morning_email()
