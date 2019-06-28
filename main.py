@@ -31,12 +31,12 @@ def format_data(dep_name, dest_name, dest_code, data):
     departures = []
     for x in data:
         timetable = {}
-        timetable['Status'] = x['status']
-        timetable['Platform'] = x['platform']
-        timetable['Destination'] = x['destination_name']
-        timetable['Scheduled Departure'] = x['aimed_departure_time']
-        timetable['Expected Departure'] = x['expected_departure_time']
-        timetable['Estimated Arrival Time'] = get_arrival_time(x['service_timetable']['id'], dest_code)
+        timetable['status'] = x['status']
+        timetable['platform'] = x['platform']
+        timetable['dest'] = x['destination_name']
+        timetable['sch_dep'] = x['aimed_departure_time']
+        timetable['exp_dep'] = x['expected_departure_time']
+        timetable['eta'] = get_arrival_time(x['service_timetable']['id'], dest_code)
         departures.append(timetable)
 
     print(f'From {dep_name} to {dest_name}')
