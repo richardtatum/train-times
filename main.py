@@ -105,4 +105,8 @@ def send_timings_email():
     print('Completed')
 
 
-show_departures('fnb', 'clj')
+def arg_sort(list):
+    dep, dest = list
+    show_departures(dep, dest)
+
+arg_sort(sys.argv[1:])
