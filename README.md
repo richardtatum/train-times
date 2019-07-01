@@ -31,6 +31,10 @@ Will send the following email:
 
 ![](https://i.imgur.com/QdpnUSt.png)
 
+
+## Example Usage
+I personally have set this script to run twice a day with Windows Task Scheduler, once in the morning for my train to work and once in the evening for my train home. This gives me a heads up of any delays I may need to know about and lets me plan accordingly.
+
 ## Authors
 
 * **Richard Tatum** - *Whole project* - [RichardTatum](https://github.com/richardtatum)
