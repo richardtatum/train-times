@@ -1,2 +1,46 @@
 # Train Times
-API call to pull live train times, status and estimated arrival into a provided destination.
+A small script to pull train times from the Transport API and email them in a easy to read format.
+
+## Prerequisites
+- [Transport API Token](https://www.transportapi.com/)
+- AWS SES Access/Secret Key
+- Install `requirements.txt`
+- (Optional) Completed `.env` file with the following:
+
+  ```
+  # Save as .env in the main directory
+  
+  app_id=""
+  app_key=""
+  SES_REGION_NAME=""
+  AWS_ACCESS_KEY_ID=""
+  AWS_SECRET_ACCESS_KEY=""
+  SES_EMAIL_SOURCE=""
+  SES_EMAIL_DEST=""
+  ```
+
+## Run the script
+Call the file with two arguments. First the departure station, then the planned destination. Both have to be in the standard 3 letter alpha code, i.e Waterloo is WAT. A list of these codes can be found [here](https://www.nationalrail.co.uk/stations_destinations/48541.aspx).
+
+For example running:
+
+```python3 main.py eus man```
+
+
+Will send the following email:
+
+![](https://i.imgur.com/QdpnUSt.png)
+
+## Authors
+
+* **Richard Tatum** - *Whole project* - [RichardTatum](https://github.com/richardtatum)
+
+
+## License
+
+This project is licensed under the MIT License.
+
+
+## Acknowledgments
+
+* Inspired by Chris Hutchinson and his awesome [train-departure-screen](https://github.com/chrishutchinson/train-departure-screen) project.
