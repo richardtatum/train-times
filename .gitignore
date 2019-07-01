@@ -3,3 +3,6 @@
 
 email/email\.html
 email/email\.txt
+__pycache__/email\.cpython-37\.pyc
+
+__pycache__/send_email\.cpython-37\.pyc
