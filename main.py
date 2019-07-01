@@ -16,7 +16,7 @@ def show_departures(dep, dest_code):
         'calling_at': dest_code,
         'station_detail': 'calling_at',
         'from_offset': '-PT00:30:00',
-        'to_offset': 'PT03:00:00'
+        'to_offset': 'PT02:00:00'
     }
     r = requests.get(url=URL, params=PARAMS)
     data = r.json()
