@@ -1,11 +1,10 @@
 import requests
-import os
 import sys
+import os
 from dotenv import load_dotenv
-import boto3
+from send_email import send_timings_email, DIR
 
 load_dotenv()
-dir = os.path.dirname(os.path.realpath(__file__))
 
 
 def show_departures(dep, dest_code):
@@ -23,7 +22,6 @@ def show_departures(dep, dest_code):
 
     if 'error' in data:
         raise ValueError(data['error'])
-
     dep_name = data['station_name']
     dest_name = data['departures']['all'][0]['station_detail']['calling_at'][0]['station_name']
 
@@ -46,7 +44,7 @@ def format_data(dep_name, dest_name, dest_code, data):
 
 
 def format_email(departures, dep_name, dest_name):
-    with open(f'{dir}/templates/email.html', 'w') as f:
+    with open(f'{DIR}/templates/email.html', 'w') as f:
         header = f'''
                 <h4>{dep_name} to {dest_name}</h3>
                 <br>
@@ -77,36 +75,9 @@ def get_arrival_time(id, dest):
     return exp_arr_time[0]
 
 
-def send_email(subject='', text='', html=''):
-    ses = boto3.client(
-        'ses',
-        region_name=os.getenv('SES_REGION_NAME'),
-        aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
-        aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-    )
-
-    ses.send_email(
-        Source=os.getenv('SES_EMAIL_SOURCE'),
-        Destination={'ToAddresses': [os.getenv('SES_EMAIL_DEST')]},
-        Message={
-            'Subject': {'Data': subject},
-            'Body': {
-                'Text': {'Data': text},
-                'Html': {'Data': html}
-            }
-        }
-    )
-
-
-def send_timings_email():
-    send_email(subject='Train Times',
-               text=open(f'{dir}/templates/email.txt', 'r').read(),
-               html=open(f'{dir}/templates/email.html', 'r').read())
-    print('Completed')
-
-
 def arg_sort(list):
     dep, dest = list
     show_departures(dep, dest)
+
 
 arg_sort(sys.argv[1:])
