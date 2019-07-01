@@ -13,7 +13,7 @@ def show_departures(dep, dest_code):
         'app_id': os.getenv('app_id'),
         'app_key': os.getenv('app_key'),
         'calling_at': dest_code,
-        'station_detail': 'calling_at',
+        'station_detail': 'calling_at', # Grabs station info for the destination
         'from_offset': '-PT00:30:00',  # From 30mins in the past
         'to_offset': 'PT02:00:00'  # To 2 hours in the future
     }
