@@ -1,9 +1,11 @@
 import requests
 import os
+import sys
 from dotenv import load_dotenv
 import boto3
 
 load_dotenv()
+dir = os.path.dirname(os.path.realpath(__file__))
 
 
 def show_departures(dep, dest_code):
@@ -44,7 +46,7 @@ def format_data(dep_name, dest_name, dest_code, data):
 
 
 def format_email(departures, dep_name, dest_name):
-    with open('email/email.html', 'w') as f:
+    with open(f'{dir}/templates/email.html', 'w') as f:
         header = f'''
                 <h4>{dep_name} to {dest_name}</h3>
                 <br>
@@ -98,8 +100,8 @@ def send_email(subject='', text='', html=''):
 
 def send_timings_email():
     send_email(subject='Train Times',
-               text=open('email/email.txt', 'r').read(),
-               html=open('email/email.html', 'r').read())
+               text=open(f'{dir}/templates/email.txt', 'r').read(),
+               html=open(f'{dir}/templates/email.html', 'r').read())
     print('Completed')
 
 
