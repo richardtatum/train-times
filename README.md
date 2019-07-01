@@ -44,3 +44,6 @@ This project is licensed under the MIT License.
 ## Acknowledgments
 
 * Inspired by Chris Hutchinson and his awesome [train-departure-screen](https://github.com/chrishutchinson/train-departure-screen) project.
+
+## Known Issues
+Neither the API nor the script support journeys that require changing at a station. So something like WAT (London Waterloo) to MAN (Manchester Picadilly) will just return an error. Use something like [CityMapper](https://citymapper.com/) as it is much better suited to this!
